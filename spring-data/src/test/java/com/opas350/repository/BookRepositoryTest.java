@@ -29,7 +29,7 @@ public class BookRepositoryTest extends PersistenceContextTest {
     public void findByTitle() {
         String titleExpected = "Java for Dummies";
         List<Book> books = bookRepository.findByTitle(titleExpected);
-        String titleActual = books.get(0).getTitle;
+        String titleActual = books.get(0).getTitle();
         Assert.assertTrue(titleActual.contains(titleExpected));
     }
 }
