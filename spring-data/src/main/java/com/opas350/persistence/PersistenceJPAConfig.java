@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -16,7 +17,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
-import javax.persistence.EntityManager;
 import java.util.Properties;
 
 /**
@@ -25,9 +25,13 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @PropertySource("classpath:application.properties")
+@EnableJpaRepositories(basePackages="com.opas350.repository")
 public class PersistenceJPAConfig {
 
-    //TODO add protected final strings for configs
+    protected static final String PROPERTY_NAME_DATABASE_DRIVER = "db.driver";
+    protected static final String PROPERTY_NAME_DATABASE_URL = "db.url";
+    protected static final String PROPERTY_NAME_DATABASE_USERNAME = "db.username";
+    protected static final String PROPERTY_NAME_DATABASE_PASSWORD = "db.password";
 
     @Autowired
     private Environment env;
@@ -45,13 +49,13 @@ public class PersistenceJPAConfig {
         return em;
     }
 
-    @Bean
+    @Bean(name = "dataSource")
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/acc_spring_db");
-        dataSource.setUsername(env.getRequiredProperty("db.username"));
-        dataSource.setPassword(env.getRequiredProperty("db.password"));
+        dataSource.setDriverClassName(env.getRequiredProperty(PROPERTY_NAME_DATABASE_DRIVER));
+        dataSource.setUrl(env.getRequiredProperty(PROPERTY_NAME_DATABASE_URL));
+        dataSource.setUsername(env.getRequiredProperty(PROPERTY_NAME_DATABASE_USERNAME));
+        dataSource.setPassword(env.getRequiredProperty(PROPERTY_NAME_DATABASE_PASSWORD));
 
         return dataSource;
     }
@@ -66,7 +70,7 @@ public class PersistenceJPAConfig {
 
     @Bean
     public PersistenceExceptionTranslationPostProcessor exceptionTranslation(){
-       return new PersistenceExceptionTranslationPostProcessor();
+        return new PersistenceExceptionTranslationPostProcessor();
     }
 
     Properties additionalProperties() {
