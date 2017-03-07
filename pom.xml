@@ -6,13 +6,14 @@
 	<groupId>com.opas350</groupId>
 	<artifactId>acc-spring-final</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
 	<modules>
 		<module>data-model</module>
 		<module>spring-data</module>
 		<module>spring-service</module>
 		<module>spring-web</module>
 	</modules>
-	<packaging>pom</packaging>
+
 
 	<name>acc-spring-final</name>
 	<description>Demo project for Spring Boot</description>

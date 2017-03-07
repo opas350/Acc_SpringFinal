@@ -9,4 +9,10 @@ import java.util.List;
  */
 public interface BookService {
     List<Book> findByTitle(String title);
+
+    List<Book> findAll();
+
+    Book findByIsbn(String isbn);
+
+    Book saveBook(Book book);
 }

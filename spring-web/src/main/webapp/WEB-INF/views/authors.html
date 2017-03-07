@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head lang="en">
+        <title>Authors</title>
+    </head>
+    <body>
+        <div class="container">
+           <div>
+                <h2>Authors</h2>
+                <td><a th:href="${'/SpringFinal/'}">Home</a></td>
+                <td><a th:href="${'author/new'}">New Author</a></td>
+                <table class="table table-striped">
+                    <tr>
+                        <th>Id</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                    </tr>
+                    <tr th:each="author : ${authors}">
+                        <td th:text="${author.idAuthor}"><a href="/author/${author.idAuthor}">ID</a></td>
+                        <td th:text="${author.firstName}">First Name</td>
+                        <td th:text="${author.lastName}">Last Name</td>
+                        <td><a th:href="${'author/' + author.idAuthor}">View</a></td>
+                        <td><a th:href="${'author/edit/' + author.idAuthor}">Edit</a></td>
+                        <td><a th:href="${'author/delete/' + author.idAuthor}">Delete</a></td>
+                    </tr>
+                </table>
+           </div>
+        </div>
+    </body>
+</html>

@@ -12,7 +12,7 @@ import javax.persistence.PersistenceContext;
  * Created by javier.reyes.valdez on 3/2/2017.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = PersistenceContext.class)
+@ContextConfiguration(classes = PersistenceJPAConfig.class)
 public class PersistenceContextTest {
 
     @Autowired
